@@ -13,23 +13,20 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client extends Application {
-    Socket socket;
-    Scanner in;
-    PrintWriter out;
+    private Socket socket;
+    private Scanner in;
+    private PrintWriter out;
     @Override
     public void start(Stage stage) throws IOException {
         try {
             socket = new Socket("10.10.30.66", 50000);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
             in = new Scanner(socket.getInputStream());
             out = new PrintWriter(socket.getOutputStream(), true);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Scene scene = new Scene(new Group(), 320, 240);
+        Group root = new Group();
+        Scene scene = new Scene(root, 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
