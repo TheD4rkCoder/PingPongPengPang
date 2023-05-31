@@ -23,7 +23,7 @@ public class Server {
     public static void main(String[] args) {
         try {
             System.out.println("Trying to open socket");
-            serverSocket = new ServerSocket(50000);
+            serverSocket = new ServerSocket(3403);
             System.out.println("opened socket");
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -89,21 +89,25 @@ public class Server {
             printScore();
             objectValues[4] = 0.5; // reset ball
             objectValues[5] = 0.5;
+            objectValues[7] = 0.005;
         } else if (objectValues[4] > 1) {
             score[3]++;
             printScore();
             objectValues[4] = 0.5;
             objectValues[5] = 0.5;
+            objectValues[7] = 0.005;
         } else if (objectValues[5] < 0) {
             score[2]++;
             printScore();
             objectValues[4] = 0.5;
             objectValues[5] = 0.5;
+            objectValues[7] = 0.005;
         } else if (objectValues[5] > 1) {
             score[0]++;
             printScore();
             objectValues[4] = 0.5;
             objectValues[5] = 0.5;
+            objectValues[7] = 0.005;
         }
         if (ballIntersectsWithRect(objectValues[0], 1 - PADDLE_HEIGHT * 1.5, PADDLE_WIDTH, PADDLE_HEIGHT)) {
             // should be correct:
@@ -111,6 +115,7 @@ public class Server {
             double percentage = (objectValues[0] - objectValues[4]) / (PADDLE_WIDTH / 2 + BALL_RADIUS);
             double angle = 2 * Math.PI - objectValues[6];
             objectValues[6] = (angle + (Math.PI * 0.5 + percentage * 0.4 * Math.PI)) / 2;
+            objectValues[7] *= 1.2;
         }
         if (ballIntersectsWithRect(PADDLE_HEIGHT * 1.5, objectValues[1], PADDLE_HEIGHT, PADDLE_WIDTH)) {
             objectValues[4] = PADDLE_HEIGHT * 2 + BALL_RADIUS + 0.001;
@@ -119,12 +124,14 @@ public class Server {
             // should work:
             objectValues[6] = (angle + (percentage * 0.4 * Math.PI)) / 2;
             objectValues[6] = angleMod2PI(objectValues[6]);
+            objectValues[7] *= 1.2;
         }
         if (ballIntersectsWithRect(1 - objectValues[2], PADDLE_HEIGHT * 1.5, PADDLE_WIDTH, PADDLE_HEIGHT)) {
             objectValues[5] = PADDLE_HEIGHT * 2 + BALL_RADIUS + 0.001;
             double percentage = (objectValues[2] - 1 + objectValues[4]) / (PADDLE_WIDTH / 2 + BALL_RADIUS);
             double angle = 2 * Math.PI - objectValues[6];
             objectValues[6] = (angle + (Math.PI * 1.5 + percentage * 0.4 * Math.PI)) / 2;
+            objectValues[7] *= 1.2;
         }
         if (ballIntersectsWithRect(1 - PADDLE_HEIGHT * 1.5, 1 - objectValues[3], PADDLE_HEIGHT, PADDLE_WIDTH)) {
             objectValues[4] = 1 - PADDLE_HEIGHT * 2 - BALL_RADIUS - 0.001;
@@ -132,6 +139,7 @@ public class Server {
             double angle = Math.PI - objectValues[6];
             angle = angleMod2PI(angle);
             objectValues[6] = (angle + (Math.PI + percentage * 0.4 * Math.PI)) / 2;
+            objectValues[7] *= 1.2;
         }
         // movement:
         objectValues[4] += Math.cos(objectValues[6]) * objectValues[7];

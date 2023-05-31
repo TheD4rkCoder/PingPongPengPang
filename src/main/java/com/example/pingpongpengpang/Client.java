@@ -36,21 +36,6 @@ public class Client extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
-
-        try {
-            // connect to server
-            System.out.println("trying to connect to server");
-            socket = new Socket("127.0.0.1", 50000);
-            System.out.println("connected to server");
-            in = new Scanner(socket.getInputStream());
-            out = new PrintWriter(socket.getOutputStream(), true);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        // server gives you your playerID (between 1 and 4). Also waits for the server to answer (the server waits until 4 players are ready)
-        playerID = Integer.parseInt(in.nextLine());
-        System.out.println("received ID: " + playerID);
         Group root = new Group(ball);
         for (int i = 0; i < 4; i++) {
             rectangles[i] = new Rectangle();
@@ -100,6 +85,22 @@ public class Client extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+
+
+        try {
+            // connect to server
+            System.out.println("trying to connect to server");
+            socket = new Socket("serafim.link", 3403);
+            System.out.println("connected to server");
+            in = new Scanner(socket.getInputStream());
+            out = new PrintWriter(socket.getOutputStream(), true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        // server gives you your playerID (between 1 and 4). Also waits for the server to answer (the server waits until 4 players are ready)
+        playerID = Integer.parseInt(in.nextLine());
+        System.out.println("received ID: " + playerID);
+
         KeyFrame keyFrame = new KeyFrame(new Duration(40), event -> {
             boolean sendToServer = false;
             if (keysPressed[0] && rectangles[0].getX() - 0.03 * scene.getWidth() > 0) {
