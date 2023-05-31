@@ -1,48 +1,152 @@
 package com.example.pingpongpengpang;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Client extends Application {
     private Socket socket;
     private Scanner in;
     private PrintWriter out;
+    private Rectangle[] rectangles = new Rectangle[4];
+    private Ellipse ball = new Ellipse(400, 400, 20, 20);
+    private int playerID;
+    private boolean[] keysPressed = new boolean[3];
+    private Scene scene;
+
     @Override
     public void start(Stage stage) throws IOException {
+
+
         try {
-            socket = new Socket("10.10.30.66", 50000);
+            // connect to server
+            System.out.println("trying to connect to server");
+            socket = new Socket("127.0.0.1", 50000);
+            System.out.println("connected to server");
             in = new Scanner(socket.getInputStream());
             out = new PrintWriter(socket.getOutputStream(), true);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Group root = new Group();
-        Scene scene = new Scene(root, 320, 240);
+        // server gives you your playerID (between 1 and 4). Also waits for the server to answer (the server waits until 4 players are ready)
+        playerID = Integer.parseInt(in.nextLine());
+        System.out.println("received ID: " + playerID);
+        Group root = new Group(ball);
+        for (int i = 0; i < 4; i++) {
+            rectangles[i] = new Rectangle();
+            rectangles[i].setFill(Color.LIGHTGRAY);
+            rectangles[i].setStroke(Color.BLACK);
+            rectangles[i].setStrokeWidth(5);
+            rectangles[i].setArcWidth(25);
+            rectangles[i].setArcHeight(25);
+            if (i == 0 || i == 2) {
+                rectangles[i].setX(300);
+                rectangles[i].setHeight(25);
+                rectangles[i].setWidth(200);
+            } else {
+                rectangles[i].setY(300);
+                rectangles[i].setWidth(25);
+                rectangles[i].setHeight(200);
+            }
+            root.getChildren().add(rectangles[i]);
+        }
+        rectangles[0].setY(750);
+        rectangles[1].setX(25);
+        rectangles[2].setY(25);
+        rectangles[3].setX(750);
+        scene = new Scene(root, 800, 800);
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.A) {
+                    keysPressed[0] = true;
+                } else if (keyEvent.getCode() == KeyCode.D) {
+                    keysPressed[1] = true;
+                } else if (keyEvent.getCode() == KeyCode.Q) {
+                    keysPressed[2] = true;
+                }
+            }
+        });
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.A) {
+                    keysPressed[0] = false;
+                } else if (keyEvent.getCode() == KeyCode.D) {
+                    keysPressed[1] = false;
+                }
+            }
+        });
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-    }
-    private void sendPosToServer() {
-
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-            try {
-                out.println(br.readLine());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        KeyFrame keyFrame = new KeyFrame(new Duration(100), event -> {
+            boolean sendToServer = false;
+            if (keysPressed[0] && rectangles[0].getX() - 0.05 * scene.getWidth() > 0) {
+                rectangles[0].setX(rectangles[0].getX() - 0.05 * scene.getWidth());
+                sendToServer = true;
             }
+            if (keysPressed[1] && rectangles[0].getX() + 0.05* scene.getWidth() < scene.getWidth()) {
+                rectangles[0].setX(rectangles[0].getX() + 0.05 * scene.getWidth());
+                sendToServer = !sendToServer;
+            }
+            if (sendToServer) {
+                sendPositionToServer();
+            }
+        });
+        Timeline timeline = new Timeline(keyFrame);
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+        Thread receiveFromServerThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (!keysPressed[2]) {
+                    receivePositionsFromServer();
+                }
+            }
+        });
+        receiveFromServerThread.start();
+    }
 
-            String text = in.nextLine();
+    private void receivePositionsFromServer() {
+        //System.out.println("trying to read from server");
+        String[] inputs = in.nextLine().split(" ");
+        //System.out.println("read from server");
+        double[] values = new double[inputs.length];
+        for (int i = 0; i < inputs.length; i++) {
+            values[i] = Double.parseDouble(inputs[i]);
+        }
+        rectangles[1].setY(values[0]*scene.getHeight() - rectangles[1].getHeight()*0.5);
+        rectangles[2].setX(scene.getWidth() - values[1]*scene.getWidth() - rectangles[2].getWidth()*0.5);
+        rectangles[3].setY(scene.getHeight() - values[2]*scene.getHeight() - rectangles[3].getHeight()*0.5);
+        ball.setCenterX(values[3]*scene.getWidth());
+        ball.setCenterY(values[4]*scene.getHeight());
+    }
+
+    private void sendPositionToServer() {
+        //System.out.println("sending position to server");
+        out.println((rectangles[0].getX()+rectangles[0].getWidth()*0.5)/scene.getWidth()); // gives x-Value of the middle point of the paddle (between 0 and 1) to server
+        // System.out.println("sent position to server");
     }
 
     public static void main(String[] args) {
