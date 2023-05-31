@@ -102,12 +102,12 @@ public class Client extends Application {
         stage.show();
         KeyFrame keyFrame = new KeyFrame(new Duration(40), event -> {
             boolean sendToServer = false;
-            if (keysPressed[0] && rectangles[0].getX() - 0.05 * scene.getWidth() > 0) {
-                rectangles[0].setX(rectangles[0].getX() - 0.05 * scene.getWidth());
+            if (keysPressed[0] && rectangles[0].getX() - 0.03 * scene.getWidth() > 0) {
+                rectangles[0].setX(rectangles[0].getX() - 0.03 * scene.getWidth());
                 sendToServer = true;
             }
-            if (keysPressed[1] && rectangles[0].getX() + 0.05* scene.getWidth() < scene.getWidth() - rectangles[0].getWidth()) {
-                rectangles[0].setX(rectangles[0].getX() + 0.05 * scene.getWidth());
+            if (keysPressed[1] && rectangles[0].getX() + 0.03 * scene.getWidth() < scene.getWidth() - rectangles[0].getWidth()) {
+                rectangles[0].setX(rectangles[0].getX() + 0.03 * scene.getWidth());
                 sendToServer = !sendToServer;
             }
             if (sendToServer) {
@@ -136,16 +136,16 @@ public class Client extends Application {
         for (int i = 0; i < inputs.length; i++) {
             values[i] = Double.parseDouble(inputs[i]);
         }
-        rectangles[1].setY(values[0]*scene.getHeight() - rectangles[1].getHeight()*0.5);
-        rectangles[2].setX(scene.getWidth() - values[1]*scene.getWidth() - rectangles[2].getWidth()*0.5);
-        rectangles[3].setY(scene.getHeight() - values[2]*scene.getHeight() - rectangles[3].getHeight()*0.5);
-        ball.setCenterX(values[3]*scene.getWidth());
-        ball.setCenterY(values[4]*scene.getHeight());
+        rectangles[1].setY(values[0] * scene.getHeight() - rectangles[1].getHeight() * 0.5);
+        rectangles[2].setX(scene.getWidth() - values[1] * scene.getWidth() - rectangles[2].getWidth() * 0.5);
+        rectangles[3].setY(scene.getHeight() - values[2] * scene.getHeight() - rectangles[3].getHeight() * 0.5);
+        ball.setCenterX(values[3] * scene.getWidth());
+        ball.setCenterY(values[4] * scene.getHeight());
     }
 
     private void sendPositionToServer() {
         //System.out.println("sending position to server");
-        out.println((rectangles[0].getX()+rectangles[0].getWidth()*0.5)/scene.getWidth()); // gives x-Value of the middle point of the paddle (between 0 and 1) to server
+        out.println((rectangles[0].getX() + rectangles[0].getWidth() * 0.5) / scene.getWidth()); // gives x-Value of the middle point of the paddle (between 0 and 1) to server
         // System.out.println("sent position to server");
     }
 

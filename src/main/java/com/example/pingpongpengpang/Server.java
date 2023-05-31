@@ -17,7 +17,7 @@ public class Server {
     private static Scanner[] in = new Scanner[4];
     private static PrintWriter[] out = new PrintWriter[4];
 
-    private static double[] objectValues = {0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.01}; // player1x, player2y, player3x, player4y, ballx, bally, ballAngle, ballSpeed
+    private static double[] objectValues = {0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.005}; // player1x, player2y, player3x, player4y, ballx, bally, ballAngle, ballSpeed
     private static int[] score = new int[4];
 
     public static void main(String[] args) {
@@ -107,40 +107,31 @@ public class Server {
         }
         if (ballIntersectsWithRect(objectValues[0], 1 - PADDLE_HEIGHT * 1.5, PADDLE_WIDTH, PADDLE_HEIGHT)) {
             // should be correct:
-            objectValues[5] = 1 - PADDLE_HEIGHT * 2 - BALL_RADIUS - 2;
-            System.out.println("hits 1");
-            double percentage = 2 * (objectValues[0] - objectValues[4]) / PADDLE_WIDTH;
+            objectValues[5] = 1 - PADDLE_HEIGHT * 2 - BALL_RADIUS - 0.001;
+            double percentage = (objectValues[0] - objectValues[4]) / (PADDLE_WIDTH / 2 + BALL_RADIUS);
             double angle = 2 * Math.PI - objectValues[6];
-            objectValues[6] = (angle + (Math.PI * 0.5 + percentage * 0.4444 * Math.PI)) / 2;
+            objectValues[6] = (angle + (Math.PI * 0.5 + percentage * 0.4 * Math.PI)) / 2;
         }
         if (ballIntersectsWithRect(PADDLE_HEIGHT * 1.5, objectValues[1], PADDLE_HEIGHT, PADDLE_WIDTH)) {
-
-            objectValues[4] = PADDLE_HEIGHT * 2 + BALL_RADIUS + 2;
-            System.out.println("hits 2");
-            double percentage = 2 * (objectValues[1] - objectValues[5]) / PADDLE_WIDTH;
+            objectValues[4] = PADDLE_HEIGHT * 2 + BALL_RADIUS + 0.001;
+            double percentage = (objectValues[1] - objectValues[5]) / (PADDLE_WIDTH / 2 + BALL_RADIUS);
             double angle = Math.PI - objectValues[6];
-            angle = angleMod2PI(angle);
-            if (angle > Math.PI) {
-                angle -= 2 * Math.PI;
-            }
             // should work:
-            objectValues[6] = (angle + (percentage * 0.4444 * Math.PI)) / 2;
+            objectValues[6] = (angle + (percentage * 0.4 * Math.PI)) / 2;
             objectValues[6] = angleMod2PI(objectValues[6]);
         }
         if (ballIntersectsWithRect(1 - objectValues[2], PADDLE_HEIGHT * 1.5, PADDLE_WIDTH, PADDLE_HEIGHT)) {
-            objectValues[5] = PADDLE_HEIGHT * 2 + BALL_RADIUS + 2;
-            System.out.println("hits 3");
-            double percentage = -(objectValues[2] - objectValues[4]) / PADDLE_WIDTH * 2;
+            objectValues[5] = PADDLE_HEIGHT * 2 + BALL_RADIUS + 0.001;
+            double percentage = (objectValues[2] - 1 + objectValues[4]) / (PADDLE_WIDTH / 2 + BALL_RADIUS);
             double angle = 2 * Math.PI - objectValues[6];
-            objectValues[6] = (angle + (Math.PI * 1.5 + percentage * 0.4444 * Math.PI)) / 2;
+            objectValues[6] = (angle + (Math.PI * 1.5 + percentage * 0.4 * Math.PI)) / 2;
         }
         if (ballIntersectsWithRect(1 - PADDLE_HEIGHT * 1.5, 1 - objectValues[3], PADDLE_HEIGHT, PADDLE_WIDTH)) {
-            objectValues[4] = 1 - PADDLE_HEIGHT * 2 - BALL_RADIUS - 2;
-            System.out.println("hits 4");
-            double percentage = -(objectValues[3] - objectValues[5]) / PADDLE_WIDTH * 2;
+            objectValues[4] = 1 - PADDLE_HEIGHT * 2 - BALL_RADIUS - 0.001;
+            double percentage = (objectValues[3] - 1 + objectValues[5]) / (PADDLE_WIDTH / 2 + BALL_RADIUS);
             double angle = Math.PI - objectValues[6];
             angle = angleMod2PI(angle);
-            objectValues[6] = (angle + (Math.PI + percentage * 0.4444 * Math.PI)) / 2;
+            objectValues[6] = (angle + (Math.PI + percentage * 0.4 * Math.PI)) / 2;
         }
         // movement:
         objectValues[4] += Math.cos(objectValues[6]) * objectValues[7];

@@ -42,7 +42,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Client">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.pingpongpengpang.Client" />
       <module name="PingPongPengPang" />
@@ -75,8 +75,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Server" />
         <item itemvalue="Application.Client" />
+        <item itemvalue="Application.Server" />
       </list>
     </recent_temporary>
   </component>
@@ -89,7 +89,7 @@
       <option name="presentableId" value="Default" />
       <updated>1685434660301</updated>
       <workItem from="1685434661856" duration="14427000" />
-      <workItem from="1685512191829" duration="14772000" />
+      <workItem from="1685512191829" duration="21727000" />
     </task>
     <task id="LOCAL-00001" summary="idk">
       <created>1685434913438</created>
@@ -119,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685538482532</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="idk">
+      <created>1685542560715</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1685542560715</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
