@@ -100,13 +100,13 @@ public class Client extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-        KeyFrame keyFrame = new KeyFrame(new Duration(100), event -> {
+        KeyFrame keyFrame = new KeyFrame(new Duration(40), event -> {
             boolean sendToServer = false;
             if (keysPressed[0] && rectangles[0].getX() - 0.05 * scene.getWidth() > 0) {
                 rectangles[0].setX(rectangles[0].getX() - 0.05 * scene.getWidth());
                 sendToServer = true;
             }
-            if (keysPressed[1] && rectangles[0].getX() + 0.05* scene.getWidth() < scene.getWidth()) {
+            if (keysPressed[1] && rectangles[0].getX() + 0.05* scene.getWidth() < scene.getWidth() - rectangles[0].getWidth()) {
                 rectangles[0].setX(rectangles[0].getX() + 0.05 * scene.getWidth());
                 sendToServer = !sendToServer;
             }
