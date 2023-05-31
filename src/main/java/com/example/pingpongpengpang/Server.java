@@ -108,22 +108,26 @@ public class Server {
         if (ballIntersectsWithRect(objectValues[0], 1 - PADDLE_HEIGHT * 1.5, PADDLE_WIDTH, PADDLE_HEIGHT)) {
             objectValues[5] = 1 - PADDLE_HEIGHT * 2.001 - BALL_RADIUS;
             System.out.println("hits 1");
-            objectValues[6] = 2 * Math.PI - objectValues[6];
+            double percentage = (objectValues[0] + PADDLE_WIDTH*0.5 - objectValues[4])/PADDLE_WIDTH*2;
+            objectValues[6] = (2 * Math.PI - objectValues[6] + (Math.PI*0.5 + percentage * 0.4444*Math.PI))/2;
         }
         if (ballIntersectsWithRect(PADDLE_HEIGHT * 1.5, objectValues[1], PADDLE_HEIGHT, PADDLE_WIDTH)) {
             objectValues[4] = PADDLE_HEIGHT * 2.001 + BALL_RADIUS;
             System.out.println("hits 2");
-            objectValues[6] = Math.PI - objectValues[6];
+            double percentage = (objectValues[1] + PADDLE_WIDTH*0.5 - objectValues[5])/PADDLE_WIDTH*2;
+            objectValues[6] = (Math.PI - objectValues[6]+(Math.PI + percentage * 0.4444*Math.PI))/2;
         }
         if (ballIntersectsWithRect(1 - objectValues[2], PADDLE_HEIGHT * 1.5, PADDLE_WIDTH, PADDLE_HEIGHT)) {
             objectValues[5] = PADDLE_HEIGHT * 2.001 + BALL_RADIUS;
             System.out.println("hits 3");
-            objectValues[6] = 2 * Math.PI - objectValues[6];
+            double percentage = (objectValues[0] + PADDLE_WIDTH*0.5 - objectValues[4])/PADDLE_WIDTH*2;
+            objectValues[6] = (2 * Math.PI - objectValues[6] + (Math.PI*1.5 + percentage * 0.4444*Math.PI))/2;
         }
         if (ballIntersectsWithRect(1 - PADDLE_HEIGHT * 1.5, 1 - objectValues[3], PADDLE_HEIGHT, PADDLE_WIDTH)) {
             objectValues[4] = 1 - PADDLE_HEIGHT * 2.001 - BALL_RADIUS;
             System.out.println("hits 4");
-            objectValues[6] = Math.PI - objectValues[6];
+            double percentage = (objectValues[0] + PADDLE_WIDTH*0.5 - objectValues[5])/PADDLE_WIDTH*2;
+            objectValues[6] = (Math.PI - objectValues[6] + (percentage * 0.4444*Math.PI))/2;
 
         }
 
