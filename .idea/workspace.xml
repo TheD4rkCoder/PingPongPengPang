@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="PingPongPengPangClient:jar" />
+      <artifact name="4-player Ping Pong Client" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -10,10 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25534b6e-5d13-475f-8285-5289561e044d" name="Changes" comment="idk">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/PingPongPengPangClient_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/PingPongPengPangServer_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pingpongpengpang/Launcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/4_player_Ping_Pong_Client.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/PingPongPengPangClient_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/PingPongPengPangServer_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/4_player_Ping_Pong_Server_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pingpongpengpang/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pingpongpengpang/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pingpongpengpang/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pingpongpengpang/Server.java" afterDir="false" />
@@ -42,19 +41,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Program Files/Java/javafx-sdk-17.0.6",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Program Files/Java/javafx-sdk-17.0.6&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.pingpongpengpang.Client" />
@@ -102,7 +101,8 @@
       <option name="presentableId" value="Default" />
       <updated>1685434660301</updated>
       <workItem from="1685434661856" duration="14427000" />
-      <workItem from="1685512191829" duration="25430000" />
+      <workItem from="1685512191829" duration="26866000" />
+      <workItem from="1685599760635" duration="12060000" />
     </task>
     <task id="LOCAL-00001" summary="idk">
       <created>1685434913438</created>
@@ -146,7 +146,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685555746500</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="idk">
+      <created>1685559524239</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1685559524239</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

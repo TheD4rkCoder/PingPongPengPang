@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="4-player Ping Pong Client">
+    <output-path>$PROJECT_DIR$/out/artifacts/4_player_Ping_Pong_Client</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="com.example.pingpongpengpang.Client" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="nativeBundle" value="exe" />
+        <option name="title" value="4 player Ping Pong Client" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="PingPongPengPang.jar">
+        <element id="module-output" name="PingPongPengPang" />
+      </element>
+    </root>
+  </artifact>
+</component>
