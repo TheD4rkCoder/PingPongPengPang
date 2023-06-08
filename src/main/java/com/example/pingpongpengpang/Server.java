@@ -21,6 +21,7 @@ public class Server {
     private static double[] objectValues = {-1, -1, -1, -1, 0.5, 0.5, 0.5, 0.005}; // player1x, player2y, player3x, player4y, ballx, bally, ballAngle, ballSpeed
     private static int[] score = new int[4];
     private static boolean active;
+
     public static void main(String[] args) {
         openServerSocket();
 
@@ -90,26 +91,27 @@ public class Server {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
+                    while (!active) {
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                     moveBall();
                     double tempBallX = objectValues[4], tempBallY = objectValues[5];
+                    active = false;
                     for (int i = 0; i < 4; i++) {
-                        active = false;
                         if (objectValues[i] != -1) {
                             active = true;
                             //System.out.println("sending to player " + i);
-                            out[i].printf("%f %f %f %f %f\n", objectValues[(i + 1) % 4], objectValues[(i + 2) % 4], objectValues[(i + 3) % 4], tempBallX, tempBallY);
-                        }
-                        if (!active) {
-                            try {
-                                Thread.sleep(100);
-                            } catch (InterruptedException e) {
-                                throw new RuntimeException(e);
-                            }
+                            out[i].printf("%f %f %f %f %f %d %d %d %d\n", objectValues[(i + 1) % 4], objectValues[(i + 2) % 4], objectValues[(i + 3) % 4], tempBallX, tempBallY, score[i], score[(i + 1) % 4], score[(i + 2) % 4], score[(i + 3) % 4]);
                         }
                         double temp = tempBallX;
                         tempBallX = tempBallY;
                         tempBallY = 1 - temp;
                     }
+
                 }
             }
         });
@@ -177,7 +179,7 @@ public class Server {
                 objectValues[7] += 0.001;
             }
         } else {
-            if (objectValues[5] > 1 - 2 * PADDLE_HEIGHT + BALL_RADIUS) {
+            if (objectValues[5] > 1 - 2 * PADDLE_HEIGHT - BALL_RADIUS) {
                 objectValues[5] = 1 - PADDLE_HEIGHT * 2 - BALL_RADIUS - 0.001;
                 objectValues[6] = 2 * Math.PI - objectValues[6];
             }

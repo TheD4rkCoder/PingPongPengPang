@@ -9,6 +9,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -38,6 +39,7 @@ public class Client extends Application {
     private boolean[] keysPressed = new boolean[3];
     private Scene scene;
     private double oldSceneWidth = 800, oldSceneHeight = 800;
+    private Label[] scoreLabels = new Label[4];
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -203,6 +205,7 @@ public class Client extends Application {
         }else {
             walls[2].setVisible(false);
         }
+
 
         ball.setCenterX(values[3] * scene.getWidth());
         ball.setCenterY(values[4] * scene.getHeight());
