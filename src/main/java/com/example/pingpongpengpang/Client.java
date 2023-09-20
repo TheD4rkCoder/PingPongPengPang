@@ -138,8 +138,8 @@ public class Client extends Application {
         try {
             // connect to server
             System.out.println("trying to connect to server");
-            socket = new Socket("serafim.link", 3403);
-            //socket = new Socket("127.0.0.1", 40000);
+            //socket = new Socket("serafim.link", 3403);
+            socket = new Socket("127.0.0.1", 30000);
             System.out.println("connected to server");
             in = new Scanner(socket.getInputStream());
             out = new PrintWriter(socket.getOutputStream(), true);

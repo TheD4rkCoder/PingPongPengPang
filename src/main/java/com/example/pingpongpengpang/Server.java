@@ -134,7 +134,7 @@ public class Server {
     private static void openServerSocket() {
         try {
             System.out.println("Trying to open socket");
-            serverSocket = new ServerSocket(3403);
+            serverSocket = new ServerSocket(30000);
             //serverSocket = new ServerSocket(40000);
             System.out.println("opened socket");
         } catch (IOException e) {
